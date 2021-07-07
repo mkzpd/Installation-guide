@@ -11,6 +11,7 @@ cd /etc/pam.d
 sudo chmod 777 deepin_pam_unix
 sudo sed -i '1i\auth sufficient sensepam.so' deepin_pam_unix
 sudo sed -i '2i\account sufficient sensepam.so' deepin_pam_unix
+sudo sed -i '3i\auth include system-local-login' deepin_pam_unix
 
 cd 
 cd /usr/share/dde-session-ui
@@ -39,5 +40,6 @@ gcc -fPIC -fno-stack-protector -c Downloads/sensepam.c -lssl -lcrypto
 
 sudo ld -x --shared -o /lib/security/sensepam.so    sensepam.o -lssl -lcrypto
 #sudo rm ~/.local/share/keyrings/login.keyring
+#sudo systemctl restart rsyslog
 sudo rm Downloads/sensepam.c
 sudo rm sensepam.o
